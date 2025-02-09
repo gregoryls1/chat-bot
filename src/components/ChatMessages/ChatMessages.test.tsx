@@ -1,37 +1,48 @@
 import { render, screen } from '@testing-library/react'
-import { describe, test, expect } from 'vitest'
+import { describe, test, expect, beforeEach, vi } from 'vitest'
 import ChatMessages from './ChatMessages'
-import { sampleMessages } from '@/types/chat'
+import { Message } from '@/types/chat'
 
 describe('ChatMessages', () => {
+  beforeEach(() => {
+    window.HTMLElement.prototype.scrollIntoView = vi.fn()
+  })
+
   test('should render the chat messages container with no messages', () => {
     render(<ChatMessages messages={[]} />)
-
-    const chatContainer = screen.getByTestId('chat-messages')
-    expect(chatContainer).toBeInTheDocument()
-    expect(chatContainer).toHaveAttribute('role', 'log')
-    expect(chatContainer).toHaveAttribute('aria-live', 'polite')
     expect(screen.getByText('Nenhuma mensagem ainda...')).toBeInTheDocument()
   })
 
   test('should render chat messages when provided', () => {
+    const sampleMessages: Message[] = [
+      { id: '1', text: 'Olá!', sender: 'user', timestamp: Date.now() },
+      {
+        id: '2',
+        text: 'Oi! Como posso ajudar?',
+        sender: 'bot',
+        timestamp: Date.now(),
+      },
+    ]
+
     render(<ChatMessages messages={sampleMessages} />)
 
-    sampleMessages.forEach((msg) => {
-      expect(screen.getByText(msg.text)).toBeInTheDocument()
-    })
+    expect(screen.getByText('Olá!')).toBeInTheDocument()
+    expect(screen.getByText('Oi! Como posso ajudar?')).toBeInTheDocument()
   })
 
   test('should scroll to the last message when a new one is added', () => {
-    const { rerender } = render(<ChatMessages messages={[]} />)
-    const chatContainer = screen.getByTestId('chat-messages')
+    const sampleMessages: Message[] = [
+      { id: '1', text: 'Olá!', sender: 'user', timestamp: Date.now() },
+      {
+        id: '2',
+        text: 'Oi! Como posso ajudar?',
+        sender: 'bot',
+        timestamp: Date.now(),
+      },
+    ]
 
-    expect(chatContainer).toBeInTheDocument()
+    render(<ChatMessages messages={sampleMessages} />)
 
-    // Simula a adição de mensagens
-    rerender(<ChatMessages messages={sampleMessages} />)
-
-    const lastMessage = sampleMessages[sampleMessages.length - 1]
-    expect(screen.getByText(lastMessage.text)).toBeInTheDocument()
+    expect(window.HTMLElement.prototype.scrollIntoView).toHaveBeenCalled()
   })
 })

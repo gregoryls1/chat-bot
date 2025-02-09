@@ -1,28 +1,17 @@
 import ChatHeader from '@/components/ChatHeader'
 import ChatMessages from '@/components/ChatMessages'
 import ChatInput from '@/components/ChatInput'
-import { Message } from '@/types/chat'
-import { useState } from 'react'
+import { useChatStore } from '@/store/ChatStore/chatStore'
 
 const Chat = () => {
-  const [messages, setMessages] = useState<Message[]>([])
+  const { messages, addMessage } = useChatStore()
 
-  const handleSendMessage = (text: string) => {
-    const newMessage: Message = {
-      id: crypto.randomUUID(),
-      text,
-      sender: 'user',
-      timestamp: Date.now(),
-    }
-
-    setMessages((prev) => [...prev, newMessage])
-  }
   return (
     <div className="flex justify-center h-screen bg-gray-100 dark:bg-gray-900">
       <div className="w-full bg-white dark:bg-gray-800 shadow-lg rounded-lg flex flex-col">
         <ChatHeader />
         <ChatMessages messages={messages} />
-        <ChatInput onSendMessage={handleSendMessage} />
+        <ChatInput onSendMessage={(text) => addMessage(text, 'user')} />
       </div>
     </div>
   )

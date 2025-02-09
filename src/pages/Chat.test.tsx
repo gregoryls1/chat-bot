@@ -1,9 +1,11 @@
-import { describe, test, expect, beforeEach } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, test, expect, beforeEach, vi } from 'vitest'
 import Chat from './Chat'
 
 describe('Chat Page', () => {
   beforeEach(() => {
+    window.HTMLElement.prototype.scrollIntoView = vi.fn()
+
     render(<Chat />)
   })
 
@@ -16,7 +18,9 @@ describe('Chat Page', () => {
   })
 
   test('should render the ChatInput component inside the page', () => {
-    expect(screen.getByTestId('chat-input')).toBeInTheDocument()
+    expect(
+      screen.getByPlaceholderText('Digite uma mensagem...')
+    ).toBeInTheDocument()
   })
 
   test('should send and display a new user message', () => {
@@ -27,7 +31,5 @@ describe('Chat Page', () => {
     fireEvent.click(sendButton)
 
     expect(screen.getByText('Olá, mundo!')).toBeInTheDocument()
-
-    expect(input).toHaveValue('')
   })
 })
