@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   env: {
     browser: true,
     es2021: true,
@@ -29,7 +29,13 @@ module.exports = {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.svg'],
       },
-      typescript: {},
+      alias: {
+        map: [['@', './src']], // 🔥 Faz o ESLint reconhecer `@/`
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+      typescript: {
+        alwaysTryTypes: true,
+      },
     },
   },
   plugins: [

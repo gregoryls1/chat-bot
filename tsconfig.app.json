@@ -23,8 +23,10 @@
     /* Configuração do Alias */
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["*"]
-    }
+      "@/*": ["./*"]
+    },
+
+    "types": ["vitest"]
   },
   "include": ["src", "tailwind.config.js"]
 }
