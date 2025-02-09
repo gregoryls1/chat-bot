@@ -15,6 +15,12 @@ const ChatInput = ({ onSendMessage }: ChatInputProps) => {
     }
   }
 
+  const handleKeyEnter = (event: any) => {
+    if (event.key === 'Enter') {
+      handleSend()
+    }
+  }
+
   return (
     <div className="p-4 border-t border-gray-300 dark:border-gray-600 flex items-center">
       <input
@@ -22,6 +28,7 @@ const ChatInput = ({ onSendMessage }: ChatInputProps) => {
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyEnter}
         placeholder="Digite uma mensagem..."
         className="flex-grow p-2 border rounded-md dark:bg-gray-800 dark:text-white"
       />
