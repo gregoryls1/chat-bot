@@ -85,6 +85,6 @@ npm run test:e2e
 ```
 
 Documentação Técnica
-Para mais detalhes sobre as decisões técnicas e o racional por trás das escolhas feitas no projeto, consulte a documentação completa:
+Para mais detalhes sobre as decisões técnicas e o racional por trás das escolhas feitas no projeto:
 
-📖[DOCUMENTATION.md](DOCUMENTATION.md)
+📖 [DOCUMENTATION.md](DOCUMENTATION.md)
