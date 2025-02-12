@@ -26,7 +26,7 @@
       "@/*": ["./*"]
     },
 
-    "types": ["vitest"]
+    "types": ["vitest", "cypress"]
   },
-  "include": ["src", "tailwind.config.js"]
+  "include": ["src",  "cypress", "tailwind.config.js"]
 }

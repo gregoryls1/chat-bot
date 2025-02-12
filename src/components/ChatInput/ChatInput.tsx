@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Send } from 'lucide-react'
-import { useChatStore } from '@/store/ChatStore/chatStore'
+import { useChat } from '@/hooks/useChat'
 
 type ChatInputProps = {
   onSendMessage: (message: string) => void
@@ -8,7 +8,7 @@ type ChatInputProps = {
 
 const ChatInput = ({ onSendMessage }: ChatInputProps) => {
   const [input, setInput] = useState('')
-  const isBotTyping = useChatStore((state) => state.isBotTyping)
+  const { isBotTyping } = useChat()
 
   const handleSend = () => {
     if (input.trim() !== '') {
@@ -36,8 +36,9 @@ const ChatInput = ({ onSendMessage }: ChatInputProps) => {
         disabled={isBotTyping}
       />
       <button
+        data-testid="send-button"
         onClick={handleSend}
-        className="ml-2 p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+        className="ml-2 p-2 bg-blue-500 dark:bg-black text-white rounded-md transition"
         disabled={isBotTyping}
       >
         <Send className="w-5 h-5" />

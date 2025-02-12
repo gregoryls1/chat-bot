@@ -1,7 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import MessageBubble from '@/components/MessageBubble'
 import { Message } from '@/types/chat'
-import { useChatStore } from '@/store/ChatStore/chatStore'
+import { useChat } from '@/hooks/useChat'
 
 type ChatMessagesProps = {
   messages: Message[]
@@ -9,16 +9,30 @@ type ChatMessagesProps = {
 
 const ChatMessages = ({ messages }: ChatMessagesProps) => {
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
-  const isBotTyping = useChatStore((state) => state.isBotTyping)
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const { isBotTyping } = useChat()
+  const [isUserScrolling, setIsUserScrolling] = useState(false)
+
+  const handleScroll = () => {
+    if (!containerRef.current) return
+    const { scrollTop, scrollHeight, clientHeight } = containerRef.current
+
+    const isAtBottom = scrollHeight - scrollTop <= clientHeight + 10
+    setIsUserScrolling(!isAtBottom)
+  }
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages, isBotTyping])
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [messages])
 
   return (
     <div
       data-testid="chat-messages"
-      className="flex flex-col flex-grow p-4 space-y-2 overflow-y-auto justify-end"
+      className="flex flex-col flex-grow p-4 space-y-2 overflow-y-auto"
+      ref={containerRef}
+      onScroll={handleScroll} // Detecta rolagem manual do usuário
     >
       {messages.length === 0 ? (
         <p className="text-gray-600 dark:text-gray-300 text-center">
@@ -36,6 +50,7 @@ const ChatMessages = ({ messages }: ChatMessagesProps) => {
         </div>
       )}
 
+      {/* Elemento para rolagem automática */}
       <div ref={messagesEndRef} />
     </div>
   )

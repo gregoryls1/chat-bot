@@ -15,7 +15,7 @@ const MessageBubble = ({ message }: MessageBubbleProps) => {
     <div
       className={`p-3 rounded-lg max-w-xs break-words flex flex-col ${
         isUser
-          ? 'bg-blue-500 text-white self-end'
+          ? 'bg-blue-500 dark:bg-gray-700 text-white self-end'
           : 'bg-gray-300 text-black self-start'
       }`}
       data-testid="message-bubble"

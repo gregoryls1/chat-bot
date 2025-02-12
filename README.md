@@ -1,50 +1,85 @@
-# React + TypeScript + Vite
+# Chat Bot 💬
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Um chatbot interativo construído com React, TypeScript, Zustand, e testado com Cypress & Vitest.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React + Vite
+- TypeScript
+- Zustand (Gerenciamento de Estado)
+- TailwindCSS (Estilização)
+- Cypress (Testes End-to-End)
+- Vitest + Testing Library (Testes Unitários)
+- ESLint & Prettier (Padrões de Código)
 
-## Expanding the ESLint configuration
+## 📦 Instalação e Configuração
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 1️⃣ Clonar o Repositório
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```sh
+git clone https://github.com/seu-usuario/chat-bot.git
+cd chat-bot
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2️⃣ Instalar Dependências
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```sh
+npm install
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### 3️⃣ Rodar o Projeto
+
+```sh
+npm run dev
+```
+
+O projeto estará disponível em `http://localhost:8080`.
+
+## 🛠️ Comandos Disponíveis
+
+| Comando            | Descrição                              |
+| ------------------ | -------------------------------------- |
+| `npm run dev`      | Inicia o servidor de desenvolvimento   |
+| `npm run lint`     | Executa o ESLint para verificar erros  |
+| `npm run format`   | Formata o código com Prettier          |
+| `npm run test`     | Roda os testes unitários (Vitest)      |
+| `npm run test:e2e` | Executa os testes End-to-End (Cypress) |
+
+## 🎯 Funcionalidades
+
+✅ Envio de mensagens e respostas automáticas do bot  
+✅ O bot pergunta o nome do usuário e o chama pelo nome  
+✅ Persistência do histórico de mensagens no LocalStorage  
+✅ Alternância entre tema **Light/Dark** com persistência  
+✅ Scroll automático para novas mensagens  
+✅ Feedback visual enquanto o bot processa a resposta  
+✅ Testes unitários e end-to-end
+
+## 🧪 Executando os Testes
+
+### **Testes Unitários**
+
+```sh
+npm run test
+```
+
+### **Testes End-to-End (Cypress)**
+
+```sh
+npm run test:e2e
+```
+
+## 📜 Estrutura do Projeto
+
+```
+📂 src/
+ ├── 📂 components/        # Componentes reutilizáveis do chat
+ ├── 📂 pages/             # Página principal do chat
+  ├── 📂 store/             # Estado global (Zustand)
+ ├── 📂 hooks/             # Hooks customizados
+ ├── 📂 tests/             # Com setup
+ ├── 📂 types/             # Tipagens TypeScript
+ ├── 📂 utils/             # Funções auxiliares
+ ├── main.tsx             # Arquivo principal da aplicação
+ ├── App.tsx              # Estrutura base do chat
 ```

@@ -5,18 +5,25 @@ const THEME_STORAGE_KEY = 'chat_theme'
 type ThemeStore = {
   isDarkMode: boolean
   toggleTheme: () => void
-}
-
-const getInitialTheme = (): boolean => {
-  if (typeof window !== 'undefined') {
-    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY)
-    return storedTheme ? JSON.parse(storedTheme) : false
-  }
-  return false
+  initializeTheme: () => void
 }
 
 export const useThemeStore = create<ThemeStore>((set) => ({
-  isDarkMode: getInitialTheme(),
+  isDarkMode: false,
+
+  initializeTheme: () => {
+    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY)
+    const isDark = storedTheme ? JSON.parse(storedTheme) : false
+
+    set({ isDarkMode: isDark })
+
+    if (isDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  },
+
   toggleTheme: () =>
     set((state) => {
       const newTheme = !state.isDarkMode
@@ -31,3 +38,7 @@ export const useThemeStore = create<ThemeStore>((set) => ({
       return { isDarkMode: newTheme }
     }),
 }))
+
+if (typeof window !== 'undefined') {
+  ;(window as any).useThemeStore = useThemeStore
+}

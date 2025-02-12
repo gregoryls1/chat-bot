@@ -1,8 +1,8 @@
 import Chat from '@/pages/Chat'
-import { useThemeStore } from './store/ThemeStore/themeStore'
+import { useTheme } from './hooks/useTheme'
 
 const App = () => {
-  const { isDarkMode } = useThemeStore()
+  const { isDarkMode } = useTheme()
 
   return (
     <div className={`${isDarkMode ? 'dark' : ''}`}>
