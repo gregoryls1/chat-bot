@@ -83,3 +83,8 @@ npm run test:e2e
  ├── main.tsx             # Arquivo principal da aplicação
  ├── App.tsx              # Estrutura base do chat
 ```
+
+Documentação Técnica
+Para mais detalhes sobre as decisões técnicas e o racional por trás das escolhas feitas no projeto, consulte a documentação completa:
+
+📖[DOCUMENTATION.md](DOCUMENTATION.md)
